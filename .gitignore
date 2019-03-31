@@ -3,3 +3,6 @@
 
 # Ignore model files --> too large, train it yourself
 ./models/*
+
+# Ignore all ipynb checkpoint files
+.ipynb_checkpoints
