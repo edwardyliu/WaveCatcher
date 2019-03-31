@@ -1,0 +1,21 @@
+#menu {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+#menu > div {
+  padding: 5px 5px 5px 5px;
+}
+
+#side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#side > div {
+  text-align: right;
+  font-size: 15px;
+  padding: 5px 0 5px 5px;
+}

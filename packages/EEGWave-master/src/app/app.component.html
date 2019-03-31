@@ -1,0 +1,65 @@
+<mat-toolbar color="primary" style="height:100px">
+  <span><img src="../assets/brain.svg" class="app-icon"/></span>
+  <h1 class="title">EEG WAVE</h1>
+  <span class="fill-space"></span>
+  <app-user-profile></app-user-profile>
+</mat-toolbar>
+
+<section>
+  <!-- Bluetooth Connection UI -->
+  <mat-card>
+    <mat-card-header *ngIf="(auth.user | async) as user">
+      <mat-card-title>Welcome {{ user.displayName }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <button
+        *ngIf="!(connected || connecting)"
+        mat-raised-button
+        color="primary"
+        (click)="connect()"
+      >
+        <mat-icon>bluetooth</mat-icon>
+        Connect
+      </button>
+      <div *ngIf="connecting">
+        Connecting...
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      </div>
+      <button
+        *ngIf="connected"
+        mat-raised-button
+        color="primary"
+        (click)="disconnect()"
+      >
+        <mat-icon>bluetooth_connected</mat-icon>
+        Disconnect
+      </button>
+      <span [hidden]="!(batteryLevel | async)" class="battery-level-indicator">
+        <mat-icon>battery_std</mat-icon
+        >{{ batteryLevel | async | number: '1.0-0' }}%
+      </span>
+    </mat-card-content>
+  </mat-card>
+  <!-- TimeSeries Plot -->
+  <mat-card *ngIf="data">
+    <mat-card-header>
+      <mat-card-title>Live EEG Plot</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <app-time-series [data]="data"></app-time-series>
+    </mat-card-content>
+  </mat-card>
+  <!-- Recorder -->
+  <mat-card *ngIf="data">
+    <mat-card-header>
+      <mat-card-title>Recorder</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <app-recorder
+        [data]="data"
+        [accelerometer]="accelerometer"
+        [gyroscope]="gyroscope"
+      ></app-recorder>
+    </mat-card-content>
+  </mat-card>
+</section>
