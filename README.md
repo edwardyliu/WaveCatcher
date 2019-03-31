@@ -8,7 +8,7 @@ Run ./packages/EEGrunt-master/musePipeline.ipynb
 
 ## Multiple Data Processing Pipelines: 
 
-Run ./dataPipeline.ipynb
+Run ./dataPipeline.ipynb <br/>
 Run ./datasets/EEGMap/*.ipynb
 
 ## Multiple Machine Learning Models: 
