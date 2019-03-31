@@ -1,9 +1,22 @@
-<button md-icon-button (click)="startRecording()" *ngIf="!recording">
-  <mat-icon>fiber_manual_record</mat-icon>
-</button>
-<div *ngIf="recording">
-  <button md-icon-button (click)="stopRecording()" *ngIf="recording">
-    <mat-icon>stop</mat-icon>
-  </button>
-  {{ sampleCount }}
+<app-activity [recording]="recording"></app-activity>
+
+<!-- <div>Start: {{ startTime | date: 'medium' }}</div> -->
+<!-- <div>Activity Start: {{ activityStartTime | date: 'medium' }}</div> -->
+<!-- <div>Activity End: {{ activityEndTime | date: 'medium' }}</div> -->
+<!-- <div>End: {{ endTime | date: 'medium' }}</div> -->
+
+<h1 class="timer">
+  {{ hoursDisplay ? hoursDisplay : '00' }} :
+  {{ minutesDisplay && minutesDisplay <= 59 ? minutesDisplay : '00' }} :
+  {{ secondsDisplay && secondsDisplay <= 59 ? secondsDisplay : '00' }} <br />
+</h1>
+
+<div class="button-group">
+  <div>
+    <mat-checkbox [(ngModel)]="includeDownload">Download Data</mat-checkbox>
+  </div>
+  <div>
+    <button [disabled]="recording" (click)="recordButton()">Record</button>
+    <button [disabled]="!recording" (click)="discardButton()">Discard</button>
+  </div>
 </div>

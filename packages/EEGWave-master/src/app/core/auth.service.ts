@@ -10,6 +10,7 @@ import {
 
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import { DataService } from '../shared/data.service';
 
 interface User {
   uid: string;
@@ -25,17 +26,23 @@ export class AuthService {
   user: Observable<User>;
   constructor(
     private afAuth: AngularFireAuth, //
-    private afs: AngularFirestore // private router: Router
+    private afs: AngularFirestore, // private router: Router
+    private dataService: DataService
   ) {
     this.user = this.afAuth.authState.pipe(
       switchMap(user => {
         if (user) {
-          return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
+          return this.afs.doc<User>(`Users/${user.uid}`).valueChanges();
         } else {
           return of(null);
         }
       })
     );
+    const userService = this.user.subscribe(user => {
+      if (user != null) {
+        this.dataService.user = user.uid;
+      }
+    });
   }
 
   googleLogin() {
@@ -51,7 +58,7 @@ export class AuthService {
 
   private updateUserData(user) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(
-      `users/${user.uid}`
+      `Users/${user.uid}`
     );
     const data: User = {
       uid: user.uid,

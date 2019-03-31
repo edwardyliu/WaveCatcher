@@ -1,6 +1,6 @@
 <mat-toolbar color="primary" style="height:100px">
   <span><img src="../assets/brain.svg" class="app-icon"/></span>
-  <h1 class="title">EEG WAVE</h1>
+  <h1 class="title">WAVE CATCHER</h1>
   <span class="fill-space"></span>
   <app-user-profile></app-user-profile>
 </mat-toolbar>
@@ -46,20 +46,43 @@
       <mat-card-title>Live EEG Plot</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <app-time-series [data]="data"></app-time-series>
+      <app-time-series [data]="data" [filter]="filter"></app-time-series>
+      <mat-checkbox [checked]="filter" (change)="filter = !filter">
+        Filter
+      </mat-checkbox>
     </mat-card-content>
   </mat-card>
-  <!-- Recorder -->
-  <mat-card *ngIf="data">
-    <mat-card-header>
-      <mat-card-title>Recorder</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <app-recorder
-        [data]="data"
-        [accelerometer]="accelerometer"
-        [gyroscope]="gyroscope"
-      ></app-recorder>
-    </mat-card-content>
-  </mat-card>
+
+  <div *ngIf="data">
+    <h3 style="font-weight: bold">SELECT A MODE</h3>
+    <mat-tab-group
+      mat-stretch-tabs
+      class="tab-group"
+      [(selectedIndex)]="pageIndex"
+    >
+      <!-- Recorder-->
+      <mat-tab label="Record">
+        <mat-card *ngIf="data">
+          <mat-card-content>
+            <app-recorder
+              [data]="data"
+              [accelerometer]="accelerometer"
+              [gyroscope]="gyroscope"
+            >
+            </app-recorder>
+          </mat-card-content>
+        </mat-card>
+      </mat-tab>
+      <!-- Predicter -->
+      <mat-tab label="Predict">
+        <h2 style="color:white;">EEG FFT</h2>
+        <app-fft-line-chart
+          [data]="data"
+          [filter]="filter"
+        ></app-fft-line-chart>
+        <h2 style="color:white;">EEG Power Bands</h2>
+        <app-band-bar-chart [data]="data"></app-band-bar-chart>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
 </section>

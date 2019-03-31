@@ -11,7 +11,15 @@ export const environment = {
     projectId: 'eeg-wave',
     storageBucket: 'eeg-wave.appspot.com',
     messagingSenderId: '419912719846',
-  },
+  }
+  // firebase: {
+  //   apiKey: "AIzaSyBuAO0C3krsFBQwJpTTFAXpoIq6PEczjKo",
+  //   authDomain: "capstone-storage-v1.firebaseapp.com",
+  //   databaseURL: "https://capstone-storage-v1.firebaseio.com",
+  //   storageBucket: "capstone-storage-v1.appspot.com",
+  //   projectId: "capstone-storage-v1",
+  //   messagingSenderId: "87279823124"
+  // }
 };
 
 // firebase.initializeApp(config);
