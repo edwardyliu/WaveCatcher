@@ -1,0 +1,13 @@
+<h1>Song Selection</h1>
+
+<mat-radio-group [(ngModel)]="selectedSongId" color="primary">
+  <div *ngFor="let songId of songIds">
+    <mat-radio-button
+      [value]="songId"
+      [disabled]="recording"
+      (change)="updateSongInfo($event)"
+    >
+      <h3 class="label">{{ songs[songId] }}</h3>
+    </mat-radio-button>
+  </div>
+</mat-radio-group>

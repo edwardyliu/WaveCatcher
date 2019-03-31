@@ -1,0 +1,32 @@
+<h3>Choose your activity.</h3>
+<div>
+  <p>There will be a 30 second wait time before and after each activity.</p>
+</div>
+<div><p>Data will only be saved on completion.</p></div>
+
+<!-- <div>Selected Activity: {{ activityNames[selectedIndex] }}</div> -->
+<!-- <div>Recording Duration: {{ activityDuration }} seconds</div> -->
+
+<mat-tab-group
+  mat-stretch-tabs
+  class="tab-group"
+  [(selectedIndex)]="selectedIndex"
+  (selectedTabChange)="receiveActivity($event)"
+>
+  <mat-tab [disabled]="recording" label="Simon Game">
+    <app-embed-game
+      [recording]="recording"
+      (activityDurationEmitter)="receiveActivityDuration($event)"
+    >
+    </app-embed-game>
+  </mat-tab>
+  <mat-tab [disabled]="recording" label="Music">
+    <app-embed-music
+      [recording]="recording"
+      (activityDurationEmitter)="receiveActivityDuration($event)"
+      (songIdEmitter)="receiveSongId($event)"
+      (audioPathEmitter)="receiveAudioPath($event)"
+    >
+    </app-embed-music>
+  </mat-tab>
+</mat-tab-group>
